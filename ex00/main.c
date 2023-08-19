@@ -6,14 +6,14 @@
 /*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 19:08:28 by eokoshi           #+#    #+#             */
-/*   Updated: 2023/08/19 19:09:40 by eokoshi          ###   ########.fr       */
+/*   Updated: 2023/08/19 19:24:22 by eokoshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-int		g_size = 9;
+int		g_size = 4;
 
 int		**parse_arguments(char *str);
 int		is_correct_box(int **board, int **argv);
@@ -68,6 +68,18 @@ int	is_duplicate(int **board, int row, int col, int num)
 	return (0);
 }
 
+int	next_position(int row, int col, int *next_row, int *next_col)
+{
+	*next_row = row;
+	*next_col = col + 1;
+	if (*next_col == g_size)
+	{
+		(*next_row)++;
+		*next_col = 0;
+	}
+	return (0);
+}
+
 int	solve_board(int **board, int row, int col, int **argv)
 {
 	int	next_row;
@@ -83,13 +95,7 @@ int	solve_board(int **board, int row, int col, int **argv)
 		}
 		return (0);
 	}
-	next_row = row;
-	next_col = col + 1;
-	if (next_col == g_size)
-	{
-		next_row++;
-		next_col = 0;
-	}
+	next_position(row, col, &next_row, &next_col);
 	if (board[row][col] != 0)
 	{
 		return (solve_board(board, next_row, next_col, argv));
@@ -113,6 +119,7 @@ int	main(int argc, char *argv[])
 {
 	int	**view_args;
 	int	**board;
+	int	i;
 
 	if (argc != 2)
 	{
@@ -135,10 +142,12 @@ int	main(int argc, char *argv[])
 	{
 		printf("No solution found\n");
 	}
-	for (int i = 0; i < g_size; i++)
+	i = 0;
+	while (i < g_size)
 	{
 		free(board[i]);
 		free(view_args[i]);
+		i++;
 	}
 	free(board);
 	free(view_args);
