@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/19 19:08:28 by eokoshi           #+#    #+#             */
+/*   Updated: 2023/08/19 19:09:40 by eokoshi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-int		g_size = 4;
+int		g_size = 9;
 
 int		**parse_arguments(char *str);
 int		is_correct_box(int **board, int **argv);
@@ -63,16 +74,14 @@ int	solve_board(int **board, int row, int col, int **argv)
 	int	num;
 	int	next_col;
 
-	// 全てのセルに箱が配置された場合
 	if (row == g_size)
 	{
-		// is_correct_boxで盤面が正しいか確認
 		if (is_correct_box(board, argv))
 		{
-			print_board(board); // 解の盤面を印刷
-			return (1);         // 解が見つかった
+			print_board(board);
+			return (1);
 		}
-		return (0); // 解が見つからなかった
+		return (0);
 	}
 	next_row = row;
 	next_col = col + 1;
@@ -81,27 +90,23 @@ int	solve_board(int **board, int row, int col, int **argv)
 		next_row++;
 		next_col = 0;
 	}
-	// 現在のセルに箱が既に配置されている場合（値が0でない場合）、次のセルに進む
 	if (board[row][col] != 0)
 	{
 		return (solve_board(board, next_row, next_col, argv));
 	}
-	// 現在のセルに1からg_sizeまでの各値を試す
 	num = 1;
 	while (num <= g_size)
 	{
 		if (!is_duplicate(board, row, col, num))
 		{
-			board[row][col] = num; // 重複がない場合、値を配置
+			board[row][col] = num;
 			if (solve_board(board, next_row, next_col, argv))
-			{
-				return (1); // 次のセルで解が見つかった場合
-			}
-			board[row][col] = 0; // 解が見つからなかった場合、値をリセットして次の値を試す
+				return (1);
+			board[row][col] = 0;
 		}
 		num++;
 	}
-	return (0); // このセルで解が見つからなかった場合
+	return (0);
 }
 
 int	main(int argc, char *argv[])
@@ -114,26 +119,22 @@ int	main(int argc, char *argv[])
 		fprintf(stderr, "Usage: %s <view_string>\n", argv[0]);
 		return (EXIT_FAILURE);
 	}
-	// 引数の解析
 	view_args = parse_arguments(argv[1]);
 	if (view_args == NULL)
 	{
 		fprintf(stderr, "Invalid view string\n");
 		return (EXIT_FAILURE);
 	}
-	// 盤面の初期化
 	board = initialize_board();
 	if (board == NULL)
 	{
 		fprintf(stderr, "Memory allocation error\n");
 		return (EXIT_FAILURE);
 	}
-	// 解の探索
 	if (!solve_board(board, 0, 0, view_args))
 	{
 		printf("No solution found\n");
 	}
-	// メモリの解放
 	for (int i = 0; i < g_size; i++)
 	{
 		free(board[i]);
