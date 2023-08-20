@@ -6,25 +6,24 @@
 /*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 19:08:28 by eokoshi           #+#    #+#             */
-/*   Updated: 2023/08/20 17:02:31 by eokoshi          ###   ########.fr       */
+/*   Updated: 2023/08/20 18:43:30 by eokoshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
 #include <unistd.h>
 
-// 一辺の長さ
+// length of the board
 int	g_size = 4;
 
 int	**parse_arguments(char *str);
-int	solve_board(int **board, int row, int col, int **argv);
+int	solve_board(int **board, int row, int col, int **building_views);
 
-// 盤面の初期化
-// g_size*g_sizeの２次元配列を確保し、0で初期化する
-// 値が0の場合は箱が置かれていないことを表す
+// Allocate a 2-dimensional array of g_size*g_size and initialize it with 0
+// A value of 0 indicates that no box has been placed
 // args:
-// なし
+//     None
 // return:
-// g_size*g_sizeの２次元配列
+//     2-dimensional array (g_size*g_size)
 int	**initialize_board(void)
 {
 	int	**board;

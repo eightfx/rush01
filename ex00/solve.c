@@ -6,27 +6,27 @@
 /*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 19:08:28 by eokoshi           #+#    #+#             */
-/*   Updated: 2023/08/20 17:04:47 by eokoshi          ###   ########.fr       */
+/*   Updated: 2023/08/20 18:48:33 by eokoshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		g_size;
 int		**parse_arguments(char *str);
-int		is_correct_box(int **board, int **argv);
+int		is_correct_box(int **board, int **building_views);
 void	print_board(int **board);
 
-int		solve_board(int **board, int row, int col, int **argv);
-int		process_cell(int **board, int row, int col, int **argv);
+int		solve_board(int **board, int row, int col, int **building_views);
+int		process_cell(int **board, int row, int col, int **building_views);
 
-// 上下左右で重複がないか確認
+// Check for duplicates at top, bottom, left, and right
 // args:
-//     board: 盤面(g_size*g_sizeの２次元配列)
-//     row: 現在の行
-//     col: 現在の列
-//     num: 置く数字
+//     board: 2-dimentional array of g_size*g_size
+//     row: current row
+//     col: current column
+//     num: Height of the box to be placed in (row, column)
 // return:
-//     1: 重複がある場合
-//     0: 重複がない場合
+//     1 if there is a duplicate
+//     0 if there is no duplicate
 int	is_duplicate(int **board, int row, int col, int num)
 {
 	int	c;
@@ -53,14 +53,14 @@ int	is_duplicate(int **board, int row, int col, int num)
 	return (0);
 }
 
-// 次の置く位置を計算する
+// calculate the next position to place
 // args:
-//     row: 現在の行
-//     col: 現在の列
-//     next_row: 次の行
-//     next_col: 次の列
+//     row: current row
+//     col: current column
+//     next_row: next row
+//     next_col: next column
 // return:
-//     0: 正常終了
+//     0: success
 int	next_position(int row, int col, int *next_row, int *next_col)
 {
 	*next_row = row;
@@ -73,20 +73,21 @@ int	next_position(int row, int col, int *next_row, int *next_col)
 	return (0);
 }
 
-// 盤面が正しい配置か確認する
+// Check the board for correct placement.
 // args:
-//     board: 盤面(g_size*g_sizeの２次元配列)
-//     argv: 上下左右から見える箱の数( g_size*4の２次元配列)
-//     row: 現在の行
+//     board: 2-dimentional array of g_size*g_size
+//     building_views: Number of boxes visible from the top, bottom,
+//         left and right ( 2-dimensional array of g_size*4)
+//     row: current row
 // result:
-//     1: 正解の場合
-//     0: 不正解の場合
-//     -1: まだ終わっていない場合
-int	is_finish(int **board, int **argv, int row)
+//     1: correct
+//     0: incorrect
+//     -1: not finished
+int	is_finish(int **board, int **building_views, int row)
 {
 	if (row == g_size)
 	{
-		if (is_correct_box(board, argv))
+		if (is_correct_box(board, building_views))
 		{
 			print_board(board);
 			return (1);
@@ -96,41 +97,42 @@ int	is_finish(int **board, int **argv, int row)
 	return (-1);
 }
 
-// バックトラッキングで盤面を解く
+// Backtracking to solve the board
 // args:
-//     board: 盤面(g_size*g_sizeの２次元配列)
-//     row: 現在の行
-//     col: 現在の列
-//     argv: 上下左右から見える箱の数( g_size*4の２次元配列)
+//     board: 2-dimentional array of g_size*g_size
+//     row: current row
+//     col: current column
+//     building_views: Number of boxes visible from the top, bottom,
+//         left and right ( 2-dimensional array of g_size*4)
 // return:
-//     1: 正解の場合
-//     0: 不正解の場合
+//     1: correct
+//     0: incorrect
 // note:
-//     1. 現在の位置に数字を置く
-//     2. 次の位置に移動する
-//     3. 数字が重複していないか確認する
-//     4. 重複していなければ次の位置に移動する
-//     5. 重複していれば一つ上の再帰に戻る
-int	solve_board(int **board, int row, int col, int **argv)
+// 1. place the number at the current position
+// 2. move to the next position
+// 3. check for duplicate numbers
+// If no duplicates, move to next position
+// If there is a duplicate, go back one recurrence up
+int	solve_board(int **board, int row, int col, int **building_views)
 {
 	int	next_row;
 	int	num;
 	int	next_col;
 	int	finish_flag;
 
-	finish_flag = is_finish(board, argv, row);
+	finish_flag = is_finish(board, building_views, row);
 	if (finish_flag != -1)
 		return (finish_flag);
 	next_position(row, col, &next_row, &next_col);
 	if (board[row][col] != 0)
-		return (solve_board(board, next_row, next_col, argv));
+		return (solve_board(board, next_row, next_col, building_views));
 	num = 1;
 	while (num <= g_size)
 	{
 		if (!is_duplicate(board, row, col, num))
 		{
 			board[row][col] = num;
-			if (solve_board(board, next_row, next_col, argv))
+			if (solve_board(board, next_row, next_col, building_views))
 				return (1);
 			board[row][col] = 0;
 		}

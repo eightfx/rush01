@@ -6,19 +6,19 @@
 /*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:15:47 by eokoshi           #+#    #+#             */
-/*   Updated: 2023/08/20 17:03:41 by eokoshi          ###   ########.fr       */
+/*   Updated: 2023/08/20 18:28:16 by eokoshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
 
 int		g_size;
 
-// strを4*g_sizeの２次元配列resultに代入する
+// Assign str to a 2-dimensional array of 4*g_size
 // args:
-//     result: 4*g_sizeの２次元配列
-//     str: 引数の文字列
+//     result: 2-dimensional array (4*g_size)
+//     str: command line argument string
 // return:
-// なし
+//     None
 void	insert(int **result, char *str)
 {
 	int	i;
@@ -48,11 +48,11 @@ void	insert(int **result, char *str)
 	}
 }
 
-// 引数の文字列を4*g_sizeの２次元配列に変換する
+// Convert the argument string to a 2-dimensional array of size 4*g_size
 // args:
-//     str: 引数の文字列
+//     str: command line argument string
 // return:
-//    4*g_sizeの２次元配列
+//    2-dimensional array (4*g_size)
 // example:
 //     str: "1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5"
 //     result:
