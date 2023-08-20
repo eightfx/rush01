@@ -6,13 +6,14 @@
 /*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 19:08:49 by eokoshi           #+#    #+#             */
-/*   Updated: 2023/08/19 19:08:50 by eokoshi          ###   ########.fr       */
+/*   Updated: 2023/08/20 16:51:26 by eokoshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
 
 int		g_size;
 
+// int数値をcharに変換して標準出力する
 void	write_num(int num)
 {
 	char	c;
@@ -21,6 +22,12 @@ void	write_num(int num)
 	write(1, &c, 1);
 }
 
+// 盤面を標準出力する
+// example:
+// 1 2 3 4
+// 2 3 4 1
+// 3 4 1 2
+// 4 1 2 3
 void	print_board(int **board)
 {
 	int	i;

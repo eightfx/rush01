@@ -6,12 +6,16 @@
 /*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 07:54:32 by eokoshi           #+#    #+#             */
-/*   Updated: 2023/08/19 07:55:58 by eokoshi          ###   ########.fr       */
+/*   Updated: 2023/08/20 16:33:55 by eokoshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	g_size;
 
+// 上からみたときの箱の数がargv_colと一致しているか確認
+// board: g_size * g_sizeの配列: ex [[1,2,3,4],[2,3,4,1],[3,4,1,2],[4,1,2,3]
+// argv_col: g_sizeの配列: ex. [1, 2, 3, 4]
+// return: 一致していれば1, 一致していなければ0
 int	check_from_top(int **board, int *argv_col)
 {
 	int	col;
@@ -128,6 +132,10 @@ int	check_from_right(int **board, int *argv_row)
 	return (1);
 }
 
+// 上下左右から見たときの箱の数がargvと一致しているか確認
+// board: g_size * g_sizeの配列: ex [[1,2,3,4],[2,3,4,1],[3,4,1,2],[4,1,2,3]]
+// argv: parse_argした4*g_sizeの配列
+// return: 一致していれば1, 一致していなければ0
 int	is_correct_box(int **board, int **argv)
 {
 	if (!check_from_top(board, argv[0]))

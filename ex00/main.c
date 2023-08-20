@@ -6,17 +6,21 @@
 /*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 19:08:28 by eokoshi           #+#    #+#             */
-/*   Updated: 2023/08/19 19:50:34 by eokoshi          ###   ########.fr       */
+/*   Updated: 2023/08/20 16:32:28 by eokoshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
 #include <unistd.h>
 
+// 一辺の長さ
 int	g_size = 4;
 
 int	**parse_arguments(char *str);
 int	solve_board(int **board, int row, int col, int **argv);
 
+// 盤面の初期化
+// g_size*g_sizeの２次元配列を確保し、0で初期化する
+// 値が0の場合は箱が置かれていないことを表す
 int	**initialize_board(void)
 {
 	int	**board;
