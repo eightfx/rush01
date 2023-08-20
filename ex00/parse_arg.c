@@ -6,7 +6,7 @@
 /*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:15:47 by eokoshi           #+#    #+#             */
-/*   Updated: 2023/08/20 18:28:16 by eokoshi          ###   ########.fr       */
+/*   Updated: 2023/08/20 19:41:52 by eokoshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -48,6 +48,31 @@ void	insert(int **result, char *str)
 	}
 }
 
+// Count the number of numbers in the argument string
+// args:
+//     str: command line argument string
+// return:
+//     number of numbers
+int	count_num(char *str)
+{
+	int	i;
+	int	count;
+
+	count = 0;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] >= '0' && str[i] <= '9')
+		{
+			count++;
+			while (str[i + 1] != '\0' && str[i + 1] != ' ')
+				i++;
+		}
+		i++;
+	}
+	return (count);
+}
+
 // Convert the argument string to a 2-dimensional array of size 4*g_size
 // args:
 //     str: command line argument string
@@ -65,6 +90,8 @@ int	**parse_arguments(char *str)
 	int	**result;
 	int	i;
 
+	if (count_num(str) != g_size * 4)
+		return (NULL);
 	i = 0;
 	result = (int **)malloc(4 * sizeof(int *));
 	if (!result)
