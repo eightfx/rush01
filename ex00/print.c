@@ -6,7 +6,7 @@
 /*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 19:08:49 by eokoshi           #+#    #+#             */
-/*   Updated: 2023/08/20 16:51:26 by eokoshi          ###   ########.fr       */
+/*   Updated: 2023/08/20 17:04:04 by eokoshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <unistd.h>
@@ -14,6 +14,10 @@
 int		g_size;
 
 // int数値をcharに変換して標準出力する
+// args:
+//     num: 変換する数値
+// return:
+//     なし
 void	write_num(int num)
 {
 	char	c;
@@ -23,11 +27,15 @@ void	write_num(int num)
 }
 
 // 盤面を標準出力する
+// args:
+//     board: 盤面(g_size*g_sizeの２次元配列)
+// return:
+//     なし
 // example:
-// 1 2 3 4
-// 2 3 4 1
-// 3 4 1 2
-// 4 1 2 3
+//     1 2 3 4
+//     2 3 4 1
+//     3 4 1 2
+//     4 1 2 3と標準出力する
 void	print_board(int **board)
 {
 	int	i;

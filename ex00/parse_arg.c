@@ -6,7 +6,7 @@
 /*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 21:15:47 by eokoshi           #+#    #+#             */
-/*   Updated: 2023/08/20 16:50:19 by eokoshi          ###   ########.fr       */
+/*   Updated: 2023/08/20 17:03:41 by eokoshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -14,6 +14,11 @@
 int		g_size;
 
 // strを4*g_sizeの２次元配列resultに代入する
+// args:
+//     result: 4*g_sizeの２次元配列
+//     str: 引数の文字列
+// return:
+// なし
 void	insert(int **result, char *str)
 {
 	int	i;
@@ -44,13 +49,17 @@ void	insert(int **result, char *str)
 }
 
 // 引数の文字列を4*g_sizeの２次元配列に変換する
+// args:
+//     str: 引数の文字列
+// return:
+//    4*g_sizeの２次元配列
 // example:
-// str: "1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5"
-// result:
-// [[1,2,3,4,5], // top
-// [1,2,3,4,5, ... , g_size], // bottom
-// [1,2,3,4,5], // left
-// [1,2,3,4,5]] // right
+//     str: "1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5"
+//     result:
+//     [[1,2,3,4,5], // top
+//    [1,2,3,4,5, ... , g_size], // bottom
+//    [1,2,3,4,5], // left
+//   [1,2,3,4,5]] // right
 int	**parse_arguments(char *str)
 {
 	int	**result;

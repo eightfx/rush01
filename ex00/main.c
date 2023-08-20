@@ -6,7 +6,7 @@
 /*   By: eokoshi <eokoshi@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 19:08:28 by eokoshi           #+#    #+#             */
-/*   Updated: 2023/08/20 16:32:28 by eokoshi          ###   ########.fr       */
+/*   Updated: 2023/08/20 17:02:31 by eokoshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -21,6 +21,10 @@ int	solve_board(int **board, int row, int col, int **argv);
 // 盤面の初期化
 // g_size*g_sizeの２次元配列を確保し、0で初期化する
 // 値が0の場合は箱が置かれていないことを表す
+// args:
+// なし
+// return:
+// g_size*g_sizeの２次元配列
 int	**initialize_board(void)
 {
 	int	**board;
